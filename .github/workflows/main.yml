@@ -1,30 +1,35 @@
-# 当前版本: 1.0.4
+# 当前版本: 1.0.7
 
 name: 周期自动构建与发布
 
 on:
-  # 触发构建的事件
   push:
     branches: 
-      - main  # 只有当推送到 'main' 分支时才会触发
+      - main
   schedule:
     - cron: "0 0 * * *"  # 每天00:00定时执行一次
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # 在最新的 Ubuntu 环境中运行构建任务
+    runs-on: ubuntu-latest
     steps:
-      - name: 第一步 - 检出代码
-        uses: actions/checkout@v4  # 检出仓库中的代码
-
-      - name: 第二步 - 构建 GFWList2AGH
+      - name: 第一步 - 克隆当前仓库
         run: |
-          # 下载并运行 'release.sh' 脚本来构建 GFWList2AGH
-          curl -s "https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/source/release.sh" | sudo bash
+          git clone https://github.com/XiaomingX/Baned-by-GFW  # 克隆指定仓库
+          cd Baned-by-GFW  # 进入仓库目录
 
-      - name: 第三步 - 发布 GFWList2AGH
+      - name: 第二步 - 运行 release.sh 脚本
         run: |
-          # 下载 Git.sh 脚本
-          curl -s "https://raw.githubusercontent.com/hezhijie0327/Toolkit/main/Git.sh" > "/tmp/Git.sh"
-          # 执行 Git.sh 脚本，进行发布操作
-          sudo bash "/tmp/Git.sh" -u "hezhijie0327" -e "hezhijie0327@hotmail.com" -f "." -r "GFWList2AGH" -i "由 GitHub Actions 生成" -m "push"
+          chmod +x release.sh  # 确保脚本可执行
+          ./release.sh  # 运行脚本
+
+      - name: 第三步 - 提交更改并推送
+        run: |
+          cd Baned-by-GFW  # 确保在正确的目录下
+          git config --global user.name "XiaomingX"  # 使用你的 GitHub 用户名
+          git config --global user.email "support@xxxx.com"  # 使用你的电子邮件
+          git add .
+          git commit -m "自动更新发布 Baned-by-GFW"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token 进行身份验证
