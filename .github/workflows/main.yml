@@ -1,4 +1,4 @@
-# 当前版本: 1.0.7
+# 当前版本: 1.0.8
 
 name: 周期自动构建与发布
 
@@ -8,6 +8,7 @@ on:
       - main
   schedule:
     - cron: "0 0 * * *"  # 每天00:00定时执行一次
+  workflow_dispatch:  # 允许手动触发工作流
 
 jobs:
   build:
