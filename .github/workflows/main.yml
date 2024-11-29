@@ -18,15 +18,10 @@ jobs:
         run: |
           git clone https://github.com/XiaomingX/Baned-by-GFW  # 克隆指定仓库
           cd Baned-by-GFW  # 进入仓库目录
+          curl -s "https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/source/release.sh" | sudo bash
 
-      - name: 第二步 - 运行 release.sh 脚本
+      - name: 第二步 - 提交更改并推送
         run: |
-          chmod +x release.sh  # 确保脚本可执行
-          ./release.sh  # 运行脚本
-
-      - name: 第三步 - 提交更改并推送
-        run: |
-          cd Baned-by-GFW  # 确保在正确的目录下
           git config --global user.name "XiaomingX"  # 使用你的 GitHub 用户名
           git config --global user.email "support@xxxx.com"  # 使用你的电子邮件
           git add .
