@@ -31,6 +31,4 @@ jobs:
           cd Baned-by-GFW  # 确保在正确的目录下
           git add .
           git commit -m "自动更新发布 Baned-by-GFW"
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token 进行身份验证
+          git push https://xiamingx:${{ secrets.GITHUB_TOKEN }}@github.com/XiaomingX/Baned-by-GFW.git main
