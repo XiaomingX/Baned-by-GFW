@@ -16,19 +16,11 @@ jobs:
     steps:
       - name: 第一步 - 克隆当前仓库
         run: |
-          git clone https://github.com/XiaomingX/Baned-by-GFW  # 克隆指定仓库
-          cd Baned-by-GFW  # 进入仓库目录
+          git clone https://github.com/XiaomingX/Baned-by-GFW
+          cd Baned-by-GFW
           curl -s "https://raw.githubusercontent.com/hezhijie0327/GFWList2AGH/source/release.sh" | sudo bash
-
-      - name: 第二步 - 配置 Git 用户信息
-        run: |
-          cd Baned-by-GFW  # 确保在正确的目录下
-          git config --global user.name "XiaomingX"  # 使用你的 GitHub 用户名
-          git config --global user.email "support@xxxx.com"  # 使用你的电子邮件
-
-      - name: 第三步 - 提交更改并推送
-        run: |
-          cd Baned-by-GFW  # 确保在正确的目录下
+          git config --global user.name "XiaomingX"
+          git config --global user.email "support@xxxx.com"
           git add .
           git commit -m "自动更新发布 Baned-by-GFW"
           git push https://xiamingx:${{ secrets.GITHUB_TOKEN }}@github.com/XiaomingX/Baned-by-GFW.git main
